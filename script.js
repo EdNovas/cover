@@ -1,9 +1,11 @@
+import createGlobe from 'https://esm.sh/cobe';
+
 // EdNovas Cloud - Main JavaScript
 
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize all components
     initNavbar();
-    initHeroBackground();
+    initCobeGlobe(); // 3D地球
     initPricingTabs();
     initAnimateOnScroll();
     initCounterAnimation();
@@ -40,106 +42,102 @@ function initNavbar() {
 
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
+            if (link.getAttribute('href') === `#${current} `) {
                 link.classList.add('active');
             }
         });
     });
 }
 
-// ===== Hero Background from API =====
-function initHeroBackground() {
-    const heroBg = document.getElementById('hero-bg');
-    const API_URL = 'https://api.ednovas.xyz';
+// ===== Cobe 3D Globe =====
+function initCobeGlobe() {
+    const canvas = document.getElementById('cobe-globe');
+    const container = document.getElementById('globe-container');
+    if (!canvas || !container) return;
 
-    // Create an image element to test if the API returns an image
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
+    let phi = 0;
+    let globe = null;
 
-    img.onload = function () {
-        // Image loaded successfully, use it as background
-        heroBg.style.backgroundImage = `url(${API_URL})`;
-        heroBg.style.opacity = '1';
+    // 节点位置数据 (经度, 纬度)
+    const markers = [
+        // 亚洲
+        { location: [22.3193, 114.1694], size: 0.08 },  // 香港
+        { location: [35.6762, 139.6503], size: 0.06 },  // 日本东京
+        { location: [25.0330, 121.5654], size: 0.06 },  // 台湾
+        { location: [1.3521, 103.8198], size: 0.05 },   // 新加坡
+        { location: [37.5665, 126.9780], size: 0.05 },  // 韩国首尔
+        { location: [22.3964, 114.1095], size: 0.04 },  // 澳门
+        { location: [13.7563, 100.5018], size: 0.04 },  // 泰国曼谷
+        { location: [14.5995, 120.9842], size: 0.04 },  // 菲律宾马尼拉
+        { location: [3.1390, 101.6869], size: 0.04 },   // 马来西亚
+        { location: [-6.2088, 106.8456], size: 0.04 },  // 印度尼西亚
+        { location: [28.6139, 77.2090], size: 0.05 },   // 印度
+        // 北美
+        { location: [34.0522, -118.2437], size: 0.07 }, // 美国洛杉矶
+        { location: [40.7128, -74.0060], size: 0.05 },  // 美国纽约
+        { location: [43.6532, -79.3832], size: 0.05 },  // 加拿大多伦多
+        { location: [45.4215, -75.6972], size: 0.04 },  // 加拿大渥太华
+        // 欧洲
+        { location: [51.5074, -0.1278], size: 0.06 },   // 英国伦敦
+        { location: [52.5200, 13.4050], size: 0.05 },   // 德国柏林
+        { location: [48.8566, 2.3522], size: 0.05 },    // 法国巴黎
+        { location: [52.3676, 4.9041], size: 0.04 },    // 荷兰阿姆斯特丹
+        { location: [55.7558, 37.6173], size: 0.05 },   // 俄罗斯莫斯科
+        { location: [41.0082, 28.9784], size: 0.04 },   // 土耳其伊斯坦布尔
+        // 大洋洲
+        { location: [-33.8688, 151.2093], size: 0.05 }, // 澳大利亚悉尼
+        // 南美
+        { location: [-23.5505, -46.6333], size: 0.04 }, // 巴西圣保罗
+        { location: [-34.6037, -58.3816], size: 0.04 }, // 阿根廷布宜诺斯艾利斯
+        // 非洲
+        { location: [-26.2041, 28.0473], size: 0.04 },  // 南非约翰内斯堡
+        { location: [30.0444, 31.2357], size: 0.04 },   // 埃及开罗
+        // 中东
+        { location: [25.2048, 55.2708], size: 0.04 },   // 阿联酋迪拜
+        { location: [31.7683, 35.2137], size: 0.04 },   // 以色列耶路撒冷
+    ];
+
+    const onResize = () => {
+        if (globe) globe.destroy();
+
+        // 获取容器宽度，限制最大宽度以防止过大
+        let width = container.offsetWidth;
+
+        // 设置 canvas 的 CSS 尺寸，确保它是正方形
+        canvas.style.width = width + 'px';
+        canvas.style.height = width + 'px';
+
+        // 渲染尺寸（双倍像素比以获得高清效果）
+        const size = width * 2;
+
+        globe = createGlobe(canvas, {
+            devicePixelRatio: 2,
+            width: size,
+            height: size,
+            phi: 0,
+            theta: 0.3,
+            dark: 1,
+            diffuse: 1.2,
+            mapSamples: 16000,
+            mapBrightness: 6,
+            baseColor: [0.3, 0.3, 0.3],
+            markerColor: [0.4, 0.4, 1],
+            glowColor: [0.3, 0.3, 0.8],
+            scale: 1, // 默认比例
+            markers: markers,
+            onRender: (state) => {
+                // 自动旋转
+                state.phi = phi;
+                phi += 0.005;
+                state.width = size;
+                state.height = size;
+            }
+        });
     };
 
-    img.onerror = function () {
-        console.log('API image failed to load, using animated background');
-        setAnimatedBackground();
-    };
-
-    // Try to load the image
-    img.src = API_URL;
-
-    // Set timeout fallback
-    setTimeout(() => {
-        if (!heroBg.style.backgroundImage || heroBg.style.backgroundImage === 'none') {
-            setAnimatedBackground();
-        }
-    }, 5000);
-
-    function setAnimatedBackground() {
-        // Create an animated gradient background
-        heroBg.innerHTML = `
-            <div class="animated-bg">
-                <div class="gradient-layer"></div>
-                <div class="particles"></div>
-            </div>
-        `;
-
-        // Add styles for animated background
-        const style = document.createElement('style');
-        style.textContent = `
-            .animated-bg {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                overflow: hidden;
-            }
-            .gradient-layer {
-                position: absolute;
-                top: -50%;
-                left: -50%;
-                width: 200%;
-                height: 200%;
-                background: 
-                    radial-gradient(circle at 20% 80%, rgba(99, 102, 241, 0.3) 0%, transparent 50%),
-                    radial-gradient(circle at 80% 20%, rgba(14, 165, 233, 0.3) 0%, transparent 50%),
-                    radial-gradient(circle at 40% 40%, rgba(244, 63, 94, 0.2) 0%, transparent 50%),
-                    linear-gradient(180deg, #0f0f1a 0%, #1a1a2e 100%);
-                animation: gradientMove 20s ease infinite;
-            }
-            @keyframes gradientMove {
-                0%, 100% { transform: translate(0, 0) rotate(0deg); }
-                25% { transform: translate(-5%, -5%) rotate(1deg); }
-                50% { transform: translate(-10%, 0) rotate(0deg); }
-                75% { transform: translate(-5%, 5%) rotate(-1deg); }
-            }
-            .particles {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background-image: 
-                    radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.2), transparent),
-                    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.15), transparent),
-                    radial-gradient(2px 2px at 50px 160px, rgba(255,255,255,0.2), transparent),
-                    radial-gradient(2px 2px at 90px 40px, rgba(255,255,255,0.15), transparent),
-                    radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.2), transparent),
-                    radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.15), transparent);
-                background-size: 200px 200px;
-                animation: particleFloat 60s linear infinite;
-            }
-            @keyframes particleFloat {
-                0% { transform: translateY(0); }
-                100% { transform: translateY(-200px); }
-            }
-        `;
-        document.head.appendChild(style);
-        heroBg.style.opacity = '1';
-    }
+    // 初始化和监听窗口调整
+    setTimeout(onResize, 100); // 稍微延迟以确保容器已渲染
+    window.addEventListener('resize', onResize);
 }
 
 // ===== Pricing Tabs =====
@@ -182,7 +180,7 @@ function initAnimateOnScroll() {
                 if (parent && parent.classList.contains('features-grid')) {
                     const children = parent.querySelectorAll('.feature-card');
                     children.forEach((child, index) => {
-                        child.style.transitionDelay = `${index * 0.1}s`;
+                        child.style.transitionDelay = `${index * 0.1} s`;
                     });
                 }
             }
@@ -191,7 +189,7 @@ function initAnimateOnScroll() {
 
     // Observe elements
     const animateElements = document.querySelectorAll(
-        '.feature-card, .price-card, .testimonial-card, .contact-card, .about-content, .section-header'
+        '.feature-card, .price-card, .testimonial-card, .contact-card, .about-content, .section-header, .region-card'
     );
 
     animateElements.forEach(el => {
@@ -204,11 +202,11 @@ function initAnimateOnScroll() {
     // Add visible class styles
     const style = document.createElement('style');
     style.textContent = `
-        .visible {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-    `;
+    .visible {
+    opacity: 1!important;
+    transform: translateY(0)!important;
+}
+`;
     document.head.appendChild(style);
 }
 
@@ -254,6 +252,7 @@ function initCounterAnimation() {
 // ===== Back to Top Button =====
 function initBackToTop() {
     const backToTop = document.getElementById('backToTop');
+    if (!backToTop) return;
 
     window.addEventListener('scroll', () => {
         if (window.scrollY > 500) {
@@ -285,7 +284,7 @@ function initSmoothScroll() {
 
                 // Close mobile menu if open
                 const navMenu = document.getElementById('nav-menu');
-                navMenu.classList.remove('active');
+                if (navMenu) navMenu.classList.remove('active');
             }
         });
     });
@@ -295,6 +294,8 @@ function initSmoothScroll() {
 function initMobileMenu() {
     const navToggle = document.getElementById('nav-toggle');
     const navMenu = document.getElementById('nav-menu');
+
+    if (!navToggle || !navMenu) return;
 
     navToggle.addEventListener('click', () => {
         navMenu.classList.toggle('active');
@@ -320,19 +321,6 @@ function initMobileMenu() {
         }
     });
 }
-
-// ===== Parallax Effect for Hero =====
-window.addEventListener('scroll', () => {
-    const hero = document.querySelector('.hero');
-    const scrolled = window.scrollY;
-
-    if (hero && scrolled < window.innerHeight) {
-        const heroBg = document.getElementById('hero-bg');
-        if (heroBg) {
-            heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
-        }
-    }
-});
 
 // ===== Add Loading Animation =====
 window.addEventListener('load', () => {

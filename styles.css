@@ -285,9 +285,9 @@ img {
     width: 100%;
     height: 100%;
     background: linear-gradient(180deg,
-            rgba(15, 15, 26, 0.3) 0%,
-            rgba(15, 15, 26, 0.6) 50%,
-            rgba(15, 15, 26, 0.95) 100%);
+            rgba(15, 15, 26, 0.7) 0%,
+            rgba(15, 15, 26, 0.85) 50%,
+            rgba(15, 15, 26, 0.98) 100%);
 }
 
 .hero-content {
@@ -698,109 +698,137 @@ section {
 
 .globe-container {
     position: relative;
-    width: 400px;
-    height: 400px;
-}
-
-.globe {
-    position: relative;
     width: 100%;
-    height: 100%;
+    max-width: 300px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.globe-ring {
-    position: absolute;
-    border: 2px solid rgba(99, 102, 241, 0.3);
-    border-radius: 50%;
-    animation: rotate 20s linear infinite;
+#cobe-globe {
+    cursor: grab;
+    /* 尺寸由 JS 动态控制 */
 }
 
-.globe-ring:nth-child(1) {
-    width: 300px;
-    height: 300px;
-    animation-duration: 15s;
+#cobe-globe:active {
+    cursor: grabbing;
 }
 
-.globe-ring:nth-child(2) {
-    width: 250px;
-    height: 250px;
-    animation-duration: 20s;
-    animation-direction: reverse;
+/* 统计信息 */
+.globe-stats {
+    display: flex;
+    gap: 40px;
+    margin-top: 10px;
+    /* 减小间距，因为canvas本身可能有留白 */
+    z-index: 10;
 }
 
-.globe-ring:nth-child(3) {
-    width: 200px;
-    height: 200px;
-    animation-duration: 25s;
+.globe-stat {
+    text-align: center;
 }
 
-.globe-core {
-    width: 120px;
-    height: 120px;
+.globe-stat .stat-value {
+    display: block;
+    font-size: 28px;
+    font-weight: 700;
     background: var(--gradient-primary);
-    border-radius: 50%;
-    box-shadow: 0 0 60px rgba(99, 102, 241, 0.5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-.connection-dots .dot {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: var(--primary);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
+.globe-stat .stat-name {
+    font-size: 13px;
+    color: var(--text-muted);
 }
 
-.dot-1 {
-    top: 80px;
-    left: 50%;
+/* 世界地图节点分布区域 */
+.world-map-section {
+    margin-top: 60px;
+    padding-top: 40px;
+    border-top: 1px solid var(--border-color);
 }
 
-.dot-2 {
-    top: 50%;
-    right: 60px;
+.map-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 32px;
+    color: var(--text-primary);
 }
 
-.dot-3 {
-    bottom: 100px;
-    left: 70px;
+.map-title i {
+    color: var(--primary-light);
+    margin-right: 10px;
 }
 
-.dot-4 {
-    bottom: 60px;
-    right: 100px;
+.region-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
 }
 
-.dot-5 {
-    top: 150px;
-    left: 60px;
+.region-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    padding: 16px 12px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: var(--transition-normal);
 }
 
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(360deg);
-    }
+.region-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--primary);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.2);
 }
 
-@keyframes pulse {
+.region-card.more {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(14, 165, 233, 0.1));
+    border-color: rgba(99, 102, 241, 0.3);
+}
 
-    0%,
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+.region-flag {
+    font-size: 32px;
+    line-height: 1;
+}
 
-    50% {
-        transform: scale(1.5);
-        opacity: 0.5;
-    }
+.region-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.region-count {
+    font-size: 11px;
+    color: var(--primary-light);
+    background: rgba(99, 102, 241, 0.1);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.map-note {
+    text-align: center;
+    margin-top: 24px;
+    font-size: 13px;
+    color: var(--text-muted);
+}
+
+.map-note i {
+    margin-right: 6px;
+}
+
+.map-note a {
+    color: var(--primary-light);
+    text-decoration: underline;
+}
+
+.map-note a:hover {
+    color: var(--primary);
 }
 
 /* ===== Pricing Section ===== */

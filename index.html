@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="EdNovas云 - 可能是最好用的机场，提供300+全球节点，支持Netflix/Disney+解锁，全平台客户端支持">
+    <meta name="description" content="EdNovas云 - 可能是最好用的机场，提供100+全球节点，支持Netflix/Disney+解锁，全平台客户端支持">
     <meta name="keywords" content="EdNovas, VPN, 机场, 代理, 科学上网, Netflix, Disney+">
     <title>EdNovas云 | 可能是最好用的机场</title>
 
@@ -44,7 +44,7 @@
             <div class="nav-menu" id="nav-menu">
                 <a href="#home" class="nav-link active">主页</a>
                 <a href="#features" class="nav-link">服务</a>
-                <a href="#about" class="nav-link">关于我们</a>
+                <a href="#about" class="nav-link">节点信息</a>
                 <a href="#pricing" class="nav-link">价格</a>
                 <a href="#testimonials" class="nav-link">用户评价</a>
                 <a href="#contact" class="nav-link">联系我们</a>
@@ -77,7 +77,7 @@
             </h1>
             <p class="hero-subtitle">可能是最好用的机场</p>
             <p class="hero-description">
-                300+ 全球节点 · 80+ 国家地区 · 极速稳定 · 隐私安全
+                100+ 全球节点 · 80+ 国家地区 · 极速稳定 · 隐私安全
             </p>
             <div class="hero-buttons">
                 <a href="https://new.ednovas.org/#/register" target="_blank" class="btn btn-glow btn-large">
@@ -89,7 +89,7 @@
             </div>
             <div class="hero-stats">
                 <div class="stat-item">
-                    <div class="stat-number" data-count="300">0</div>
+                    <div class="stat-number" data-count="100">0</div>
                     <div class="stat-label">全球节点</div>
                 </div>
                 <div class="stat-divider"></div>
@@ -126,7 +126,7 @@
                         <i class="fas fa-globe-americas"></i>
                     </div>
                     <h3>全球节点覆盖</h3>
-                    <p>300+ 节点分布于 80+ 国家/地区，包括美国、香港、日本、韩国、台湾等热门地区</p>
+                    <p>100+ 节点分布于 80+ 国家/地区，包括美国、香港、日本、韩国、台湾等热门地区</p>
                     <div class="feature-tags">
                         <span>🇺🇸 美国</span>
                         <span>🇭🇰 香港</span>
@@ -200,13 +200,13 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <span class="section-badge">关于我们</span>
-                    <h2 class="section-title">致力于为每位用户提供<br><span class="gradient-text">最优质的上网体验</span></h2>
-                    <p>EdNovas云自2021年以来，始终坚持为用户提供高速、稳定、安全的网络加速服务。我们深知用户对隐私和速度的需求，因此不断优化节点质量、扩展全球覆盖范围。</p>
+                    <span class="section-badge">节点信息</span>
+                    <h2 class="section-title">全球覆盖，<br><span class="gradient-text">极速连接体验</span></h2>
+                    <p>EdNovas云提供遍布全球的高速节点，确保您在任何地点都能享受低延迟、高带宽的网络服务。支持多种节点类型以满足不同的业务需求。</p>
                     <div class="about-features">
                         <div class="about-feature">
                             <i class="fas fa-check-circle"></i>
-                            <span>300+ 优质节点</span>
+                            <span>100+ 优质节点</span>
                         </div>
                         <div class="about-feature">
                             <i class="fas fa-check-circle"></i>
@@ -226,22 +226,114 @@
                     </a>
                 </div>
                 <div class="about-visual">
-                    <div class="globe-container">
-                        <div class="globe">
-                            <div class="globe-ring"></div>
-                            <div class="globe-ring"></div>
-                            <div class="globe-ring"></div>
-                            <div class="globe-core"></div>
-                            <div class="connection-dots">
-                                <span class="dot dot-1"></span>
-                                <span class="dot dot-2"></span>
-                                <span class="dot dot-3"></span>
-                                <span class="dot dot-4"></span>
-                                <span class="dot dot-5"></span>
+                    <div class="globe-container" id="globe-container">
+                        <!-- Cobe 3D 地球 -->
+                        <canvas id="cobe-globe" width="500" height="500"></canvas>
+                        <!-- 统计信息 -->
+                        <div class="globe-stats">
+                            <div class="globe-stat">
+                                <span class="stat-value" id="totalNodes">150+</span>
+                                <span class="stat-name">节点数</span>
+                            </div>
+                            <div class="globe-stat">
+                                <span class="stat-value" id="totalCountries">80+</span>
+                                <span class="stat-name">国家/地区</span>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <!-- 世界地图节点分布 -->
+            <div class="world-map-section">
+                <h3 class="map-title"><i class="fas fa-map-marked-alt"></i> 全球节点分布</h3>
+                <div class="region-grid" id="regionGrid">
+                    <!-- 由JS动态生成 -->
+                    <div class="region-card">
+                        <span class="region-flag">🇺🇸</span>
+                        <span class="region-name">美国</span>
+                        <span class="region-count">8 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇭🇰</span>
+                        <span class="region-name">香港</span>
+                        <span class="region-count">7 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇯🇵</span>
+                        <span class="region-name">日本</span>
+                        <span class="region-count">3 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇹🇼</span>
+                        <span class="region-name">台湾</span>
+                        <span class="region-count">3 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇸🇬</span>
+                        <span class="region-name">新加坡</span>
+                        <span class="region-count">2 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇰🇷</span>
+                        <span class="region-name">韩国</span>
+                        <span class="region-count">1 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇨🇦</span>
+                        <span class="region-name">加拿大</span>
+                        <span class="region-count">3 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇬🇧</span>
+                        <span class="region-name">英国</span>
+                        <span class="region-count">2 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇩🇪</span>
+                        <span class="region-name">德国</span>
+                        <span class="region-count">1 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇫🇷</span>
+                        <span class="region-name">法国</span>
+                        <span class="region-count">1 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇳🇱</span>
+                        <span class="region-name">荷兰</span>
+                        <span class="region-count">1 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇦🇺</span>
+                        <span class="region-name">澳大利亚</span>
+                        <span class="region-count">1 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇮🇳</span>
+                        <span class="region-name">印度</span>
+                        <span class="region-count">1 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇹🇷</span>
+                        <span class="region-name">土耳其</span>
+                        <span class="region-count">1 节点</span>
+                    </div>
+                    <div class="region-card">
+                        <span class="region-flag">🇷🇺</span>
+                        <span class="region-name">俄罗斯</span>
+                        <span class="region-count">1 节点</span>
+                    </div>
+                    <div class="region-card more">
+                        <span class="region-flag">🌍</span>
+                        <span class="region-name">更多地区</span>
+                        <span class="region-count">60+ 节点</span>
+                    </div>
+                </div>
+                <p class="map-note">
+                    <i class="fas fa-info-circle"></i>
+                    节点实时数据来自 <a href="http://view.ednovas.xyz/" target="_blank">view.ednovas.xyz</a>
+                </p>
             </div>
         </div>
     </section>
@@ -725,6 +817,15 @@
                     <span class="contact-action">加入群组 <i class="fas fa-arrow-right"></i></span>
                 </a>
 
+                <a href="https://discord.gg/4Ewb74X3as" target="_blank" class="contact-card">
+                    <div class="contact-icon discord">
+                        <i class="fab fa-discord"></i>
+                    </div>
+                    <h3>Discord 频道</h3>
+                    <p>用户交流</p>
+                    <span class="contact-action">加入频道 <i class="fas fa-arrow-right"></i></span>
+                </a>
+
                 <a href="https://t.me/ednovasyun1" target="_blank" class="contact-card">
                     <div class="contact-icon telegram">
                         <i class="fab fa-telegram"></i>
@@ -741,15 +842,6 @@
                     <h3>Telegram 私聊</h3>
                     <p>@ednovas</p>
                     <span class="contact-action">发起私聊 <i class="fas fa-arrow-right"></i></span>
-                </a>
-
-                <a href="https://discord.gg/4Ewb74X3as" target="_blank" class="contact-card">
-                    <div class="contact-icon discord">
-                        <i class="fab fa-discord"></i>
-                    </div>
-                    <h3>Discord 频道</h3>
-                    <p>用户交流</p>
-                    <span class="contact-action">加入频道 <i class="fas fa-arrow-right"></i></span>
                 </a>
 
                 <a href="mailto:ednovas@ednovas.tech" class="contact-card">
@@ -833,7 +925,7 @@
         <i class="fas fa-chevron-up"></i>
     </a>
 
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
 </body>
 
 </html>
