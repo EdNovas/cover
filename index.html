@@ -201,142 +201,24 @@
     <!-- About Section -->
     <section class="about" id="about">
         <div class="container">
-            <div class="about-content">
-                <div class="about-text">
-                    <span class="section-badge">节点信息</span>
-                    <h2 class="section-title">全球覆盖，<br><span class="gradient-text">极速连接体验</span></h2>
-                    <p>EdNovas云提供遍布全球的高速节点，确保您在任何地点都能享受低延迟、高带宽的网络服务。支持多种节点类型以满足不同的业务需求。</p>
-                    <div class="about-features">
-                        <div class="about-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>100+ 优质节点</span>
-                        </div>
-                        <div class="about-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>80+ 国家地区</span>
-                        </div>
-                        <div class="about-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>G口极速线路</span>
-                        </div>
-                        <div class="about-feature">
-                            <i class="fas fa-check-circle"></i>
-                            <span>全平台客户端</span>
-                        </div>
-                    </div>
-                    <a href="https://domain.ednovas.cloud/#/register" target="_blank" class="btn btn-primary btn-large">
-                        <i class="fas fa-rocket"></i> 立即体验
-                    </a>
-                </div>
-                <div class="about-visual">
-                    <div class="globe-container" id="globe-container">
-                        <!-- Cobe 3D 地球 -->
-                        <canvas id="cobe-globe" width="500" height="500"></canvas>
-                        <!-- 统计信息 -->
-                        <div class="globe-stats">
-                            <div class="globe-stat">
-                                <span class="stat-value" id="totalNodes">150+</span>
-                                <span class="stat-name">节点数</span>
-                            </div>
-                            <div class="globe-stat">
-                                <span class="stat-value" id="totalCountries">80+</span>
-                                <span class="stat-name">国家/地区</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="section-header">
+                <span class="section-badge">节点信息</span>
+                <h2 class="section-title">全球覆盖，<span class="gradient-text">极速连接体验</span></h2>
+                <p class="section-subtitle">EdNovas云提供遍布全球的高速节点，确保您在任何地点都能享受低延迟、高带宽的网络服务</p>
             </div>
 
-            <!-- 世界地图节点分布 -->
-            <div class="world-map-section">
-                <h3 class="map-title"><i class="fas fa-map-marked-alt"></i> 全球节点分布</h3>
-                <div class="region-grid" id="regionGrid">
-                    <!-- 由JS动态生成 -->
-                    <div class="region-card">
-                        <span class="region-flag">🇺🇸</span>
-                        <span class="region-name">美国</span>
-                        <span class="region-count">8 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇭🇰</span>
-                        <span class="region-name">香港</span>
-                        <span class="region-count">7 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇯🇵</span>
-                        <span class="region-name">日本</span>
-                        <span class="region-count">3 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇹🇼</span>
-                        <span class="region-name">台湾</span>
-                        <span class="region-count">3 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇸🇬</span>
-                        <span class="region-name">新加坡</span>
-                        <span class="region-count">2 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇰🇷</span>
-                        <span class="region-name">韩国</span>
-                        <span class="region-count">1 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇨🇦</span>
-                        <span class="region-name">加拿大</span>
-                        <span class="region-count">3 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇬🇧</span>
-                        <span class="region-name">英国</span>
-                        <span class="region-count">2 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇩🇪</span>
-                        <span class="region-name">德国</span>
-                        <span class="region-count">1 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇫🇷</span>
-                        <span class="region-name">法国</span>
-                        <span class="region-count">1 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇳🇱</span>
-                        <span class="region-name">荷兰</span>
-                        <span class="region-count">1 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇦🇺</span>
-                        <span class="region-name">澳大利亚</span>
-                        <span class="region-count">1 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇮🇳</span>
-                        <span class="region-name">印度</span>
-                        <span class="region-count">1 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇹🇷</span>
-                        <span class="region-name">土耳其</span>
-                        <span class="region-count">1 节点</span>
-                    </div>
-                    <div class="region-card">
-                        <span class="region-flag">🇷🇺</span>
-                        <span class="region-name">俄罗斯</span>
-                        <span class="region-count">1 节点</span>
-                    </div>
-                    <div class="region-card more">
-                        <span class="region-flag">🌍</span>
-                        <span class="region-name">更多地区</span>
-                        <span class="region-count">60+ 节点</span>
-                    </div>
-                </div>
-                <p class="map-note">
-                    <i class="fas fa-info-circle"></i>
-                    节点实时数据来自 <a href="http://view.ednovas.xyz/" target="_blank">view.ednovas.xyz</a>
-                </p>
+            <!-- 交互式世界地图 (iframe) -->
+            <div class="node-map-wrapper">
+                <iframe
+                    src="https://map.ednovas.xyz/"
+                    title="EdNovas 全球节点分布"
+                    width="100%"
+                    height="750"
+                    frameborder="0"
+                    loading="lazy"
+                    allow="fullscreen"
+                    style="border: none; border-radius: 16px; display: block;"
+                ></iframe>
             </div>
         </div>
     </section>
